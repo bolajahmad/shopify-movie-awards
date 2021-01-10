@@ -12,4 +12,16 @@ export const ShoppiesPageWrapper = styled.div`
       align-items: center;
     }
   }
+
+  .main {
+    margin-top: 2em;
+    .main_wrapper {
+      display: flex;
+    }
+  }
+
+  .footer {
+    margin-top: 2em;
+    text-align: center;
+  }
 `;

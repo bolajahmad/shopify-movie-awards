@@ -7,6 +7,10 @@
     -moz-osx-font-smoothing: grayscale;
     --color-white: hsla(0deg, 0%, 100%, 1);
     --color-gray-75: hsla(0deg, 0%, 100%, 0.75);
+    --color-gray-50: hsla(0deg, 0%, 100%, 0.5);
+    --color-gray-45: hsla(0deg, 0%, 100%, 0.45);
+    --color-gray-35: hsla(0deg, 0%, 100%, 0.35);
+    --color-gray-20: hsla(0deg, 0%, 100%, 0.20);
     --primary-color: hsla(347, 81%, 45%, 0.822);
 }
 
@@ -37,6 +41,24 @@ li {
     padding: 0;
 }
 
+main {
+    display: block;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.visually-hidden {
+    margin: 0;
+    padding: 0;
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    top: -999999px;
+    overflow: hidden;
+    border: none;
+    background: none;
+    clip: rect(1 1 1 1);
+    visibility: hidden;
 }

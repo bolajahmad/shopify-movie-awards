@@ -7,6 +7,7 @@
     ],
     "rules": {
         "prettier": true,
+        "newline-before-return": true,
         "no-unused-expression": true,
         "variable-name": {
             "options": [
@@ -22,6 +23,7 @@
         "no-duplicate-variable": true,
         "file-name-casing": [true, "kebab-case"],
         "import-spacing": true,
-        "no-var-requires": true
+        "no-var-requires": true,
+        "align": [true, "parameters", "statements", "elements"]
     }
 }

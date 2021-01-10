@@ -3,7 +3,9 @@
     "useTabs": false,
     "printWidth": 90,
     "singleQuote": true,
-    "trailingComma": "es5",
     "semi": true,
-    "jsxBracketSameLine": true
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "arrowParens": "always",
+    "trailingComma": "es5"
 }

@@ -1,0 +1,157 @@
+import { Link } from '@reach/router';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Search } from 'react-feather';
+import styled from 'styled-components';
+import { ISearchResult } from '../models';
+import { makeCallToApi, useDebounce } from '../utils';
+
+const InputWrapper = styled.label`
+  display: flex;
+  position: relative;
+  width: 100%;
+
+  .input {
+    font: inherit;
+    width: 100%;
+    padding: 0.5em 1em;
+    border: 1px solid hsl(0deg 0% 10%);
+    border-radius: 0.4em;
+    color: initial;
+    background: none;
+    transition: all 0.5s ease-in;
+
+    &:focus,
+    &:hover {
+      background-color: white;
+      color: var(--primary-color);
+
+      + .btn {
+        display: none;
+        position: relative;
+      }
+    }
+  }
+
+  .btn_wrapper {
+    position: absolute;
+    right: 0;
+
+    .btn {
+      color: hsla(0deg 0% 10% 0.9);
+      padding: 0.5em 1em 0em;
+      border: none;
+      background: none;
+    }
+  }
+`;
+
+const Wrapper = styled.ul`
+  position: absolute;
+  z-index: 100;
+  background: var(--bg-color);
+  width: 100%;
+  height: 20em;
+  overflow: auto;
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0.5em 1em;
+
+    > * + * {
+      margin-left: 1em;
+    }
+
+    p {
+      width: 60%;
+    }
+
+    img {
+      width: 3em;
+      height: 3em;
+    }
+  }
+`;
+
+export const SearchForm: React.FC<{
+  setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult[]>>;
+  searchResult: ISearchResult[];
+  nominations: string[];
+  setNominations: React.Dispatch<React.SetStateAction<string[]>>;
+}> = ({ setSearchResult, searchResult, nominations, setNominations }) => {
+  const [query, setQuery] = useState<string>('');
+
+  const debouncedQuery = useDebounce(query, 2000);
+
+  const searchMovies = useCallback(() => {
+    if (debouncedQuery.length >= 3) {
+      makeCallToApi(debouncedQuery, 'search').then((data) => {
+        const search = data.Search as ISearchResult[];
+        setSearchResult((prev) => [...search]);
+      });
+    }
+  }, [debouncedQuery, setSearchResult]);
+
+  useEffect(() => {
+    searchMovies();
+  }, [searchMovies]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.persist();
+    const { value } = e.target;
+    setQuery((prev) => value);
+  };
+
+  const addNomination = useCallback(
+    (id: string) => {
+      const index = nominations.findIndex((nom) => nom === id);
+      if (index === -1) {
+        setNominations((prev) => [...prev, id]);
+
+        return;
+      }
+      setNominations((prev) => prev.filter((nom) => nom !== id));
+
+      return;
+    },
+    [nominations, setNominations]
+  );
+
+  return (
+    <form style={{ position: 'relative', width: '30em' }}>
+      <InputWrapper>
+        <input
+          type="search"
+          className="input"
+          autoComplete="off"
+          value={query}
+          placeholder="Search for movies to nominate"
+          onChange={handleChange}
+        />
+        <div className="btn_wrapper">
+          <button className="btn">
+            <Search className="icon" size={24} />
+            <span className="visually-hidden">Search</span>
+          </button>
+        </div>
+      </InputWrapper>
+      {debouncedQuery.length > 2 && (
+        <Wrapper>
+          {searchResult.map((movie) => (
+            <li key={movie.imdbID}>
+              <img src={movie.Poster} alt="" height="36" width="36" />
+              <p>
+                <Link to={`movie/${movie.imdbID}`}>
+                  {movie.Title} ({movie.Year})
+                </Link>
+              </p>
+              <button onClick={() => addNomination(movie.imdbID)} type="button">
+                <span>nominate</span>
+              </button>
+            </li>
+          ))}
+        </Wrapper>
+      )}
+    </form>
+  );
+};

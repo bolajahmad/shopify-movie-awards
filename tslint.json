@@ -1,0 +1,30 @@
+{
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-prettier",
+        "tslint-plugin-prettier",
+        "tslint-etc"
+    ],
+    "rules": {
+        "prettier": true,
+        "newline-before-return": true,
+        "no-unused-expression": true,
+        "no-empty-interface": false,
+        "variable-name": {
+            "options": [
+                "ban-keywords",
+                "check-format",
+                "allow-leading-underscore",
+                "allow-pascal-case"
+            ]
+        },
+        "quotemark": [true, "single", "jsx-double"],
+        "semicolon": [true, "always"],
+        "no-console": false,
+        "no-duplicate-variable": true,
+        "file-name-casing": [true, "kebab-case"],
+        "import-spacing": true,
+        "no-var-requires": true,
+        "align": [true, "parameters", "statements", "elements"]
+    }
+}

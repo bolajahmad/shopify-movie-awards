@@ -17,7 +17,7 @@ export interface IMovies {
   Poster: string;
   Production: string;
   Rated: string;
-  Ratings: IRating;
+  Ratings: IRating[];
   Released: string;
   Response: string;
   Runtime: string;

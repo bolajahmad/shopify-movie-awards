@@ -11,7 +11,13 @@
     --color-gray-45: hsla(0deg, 0%, 100%, 0.45);
     --color-gray-35: hsla(0deg, 0%, 100%, 0.35);
     --color-gray-20: hsla(0deg, 0%, 100%, 0.20);
-    --primary-color: hsla(347, 81%, 45%, 0.822);
+    --primary-color: rgba(94, 13, 30, 0.824);
+    --sec-color: hsla(347, 85%, 33%, 0.822);
+    --color-info: rgb(58, 123, 160);
+    --color-success: rgb(119, 221, 72);
+    --bg-color: rgba(240, 209, 197, 1);
+    --bg-color-80: rgba(240, 209, 197, 0.80);
+    --bg-color-50: rgba(240, 209, 197, 0.50);
 }
 
 *,
@@ -27,6 +33,12 @@ body {
 
 a {
     text-decoration: none;
+    color: rgba(121, 60, 121, 0.918);
+}
+
+a:focus,
+a:hover {
+    color: rgba(121, 60, 121, 0.718);
 }
 
 img {
@@ -49,6 +61,22 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.btn {
+    padding: 1em 0.5em;
+    margin: 0 auto;
+    border-radius: 0.5em;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    font-weight: bold;
+    color: white;
+    background-color: var(--sec-color);
+    transition: all 0.5s ease-in;
+    cursor: pointer;
+}
+
 .visually-hidden {
     margin: 0;
     padding: 0;
@@ -61,4 +89,22 @@ code {
     background: none;
     clip: rect(1 1 1 1);
     visibility: hidden;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.smaller {
+    font-size: 0.75rem;
 }

@@ -9,6 +9,7 @@
         "prettier": true,
         "newline-before-return": true,
         "no-unused-expression": true,
+        "no-empty-interface": false,
         "variable-name": {
             "options": [
                 "ban-keywords",

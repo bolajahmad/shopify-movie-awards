@@ -77,6 +77,13 @@ code {
     cursor: pointer;
 }
 
+.btn:focus,
+.btn:hover {
+    outline: 1px solid currentColor;
+    box-shadow: 0px 0px 4px 3px rgb(97, 97, 97);
+    border: none;
+}
+
 .visually-hidden {
     margin: 0;
     padding: 0;

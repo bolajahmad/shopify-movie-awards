@@ -40,6 +40,23 @@ const WrapperStyles = styled.section`
         }
       }
     }
+
+    .detail_wrapper .review_list {
+      h3 {
+        color: var(--primary-color);
+      }
+
+      & li + li {
+        margin-top: 0.5em;
+        border-top: 1px solid rgb(97, 97, 97);
+      }
+      li {
+        display: flex;
+        align-items: center;
+        padding: 1em 0;
+        justify-content: space-between;
+      }
+    }
   }
 `;
 
@@ -118,9 +135,9 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
           <p>cast: {movieDetail?.Actors}</p>
           <p>{movieDetail?.Plot}</p>
 
-          <div>
+          <div className="review_list">
             <h3>Ratings</h3>
-            <ul className="review_list">
+            <ul>
               {movieDetail?.Ratings.map((rating, index) => (
                 <li key={index}>
                   <span className="bold">{rating.Source}:</span>

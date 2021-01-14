@@ -9,7 +9,7 @@ import { ShoppiesPageWrapper } from './styles';
 export const ShoppiesPage: React.FC = () => {
   const [searchResult, setSearchResult] = useState<ISearchResult[]>([]);
   const [nominationsList, setNominationsList] = useState<string[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleMenu = useCallback(() => (isOpen ? setIsOpen(false) : setIsOpen(true)), [
     isOpen,
@@ -19,6 +19,9 @@ export const ShoppiesPage: React.FC = () => {
     window.addEventListener('resize', () => {
       if (window.innerWidth > size.tablet) {
         setIsOpen(true);
+      }
+      if (window.innerWidth < size.tablet) {
+        setIsOpen(false);
       }
     });
   }, []);

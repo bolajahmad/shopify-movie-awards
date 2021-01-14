@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Menu } from 'react-feather';
 import { SearchForm } from '../components';
 import { ISearchResult, size } from '../models';
-import { useDebounce } from '../utils';
 import { MainContent, MovieDetailComponent, NominationsComponent } from './components';
 import { ShoppiesPageWrapper } from './styles';
 
@@ -11,8 +10,6 @@ export const ShoppiesPage: React.FC = () => {
   const [searchResult, setSearchResult] = useState<ISearchResult[]>([]);
   const [nominationsList, setNominationsList] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-
-  const debounced = useDebounce(isOpen, 1000);
 
   const handleMenu = useCallback(() => (isOpen ? setIsOpen(false) : setIsOpen(true)), [
     isOpen,

@@ -27,7 +27,7 @@ export function makeCallToApi(
   const query = checkQueryType(queryType) + param;
 
   return fetch(`
-  ${requestUrl}?apikey=${11978928}&${query}
+  ${requestUrl}?apikey=${process.env.REACT_APP_API_KEY}&${query}
    `)
     .then((response) => response.json())
     .catch((err) => {

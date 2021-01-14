@@ -2,12 +2,16 @@ import { RouteComponentProps } from '@reach/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ThumbsDown, ThumbsUp } from 'react-feather';
 import styled from 'styled-components';
-import { IMovies } from '../../models';
+import { device, IMovies } from '../../models';
 import { makeCallToApi } from '../../utils';
 
 const WrapperStyles = styled.section`
   min-width: 70%;
   min-height: 90vh;
+
+  .header {
+    display: none;
+  }
 
   .wrapper {
     padding: 1.5em 2em;
@@ -15,6 +19,7 @@ const WrapperStyles = styled.section`
     .img_wrapper {
       float: left;
       width: 20em;
+      max-width: 100%;
       height: 20em;
 
       img {
@@ -35,10 +40,43 @@ const WrapperStyles = styled.section`
         align-items: center;
         justify-content: space-between;
 
+        & > h3 {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+        }
+
         .btn_wrapper {
           width: 10em;
         }
       }
+    }
+
+    .detail_wrapper .review_list {
+      h3 {
+        color: var(--primary-color);
+      }
+
+      & li + li {
+        margin-top: 0.5em;
+        border-top: 1px solid rgb(97, 97, 97);
+      }
+      li {
+        display: flex;
+        align-items: center;
+        padding: 1em 0;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  @media screen and ${device.mobileL} {
+    .header {
+      width: 30em;
+      max-width: 100%;
+      padding: 0 1em;
+      display: block;
     }
   }
 `;
@@ -47,12 +85,14 @@ interface MovieDetailProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
   nominations: string[];
   id?: string;
+  headerComponent?: React.ReactNode;
 }
 
 export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
   setNominations,
   nominations,
   id,
+  headerComponent,
 }) => {
   const [movieDetail, setMovieDetail] = useState<IMovies | null>(null);
   console.log(id);
@@ -82,6 +122,7 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
 
   return (
     <WrapperStyles>
+      <div className="header">{headerComponent}</div>
       <div className="wrapper">
         <div className="img_wrapper">
           <img src={movieDetail?.Poster} alt="" />
@@ -114,13 +155,13 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
           <p>
             duration: <small>{movieDetail?.Runtime}</small>
           </p>
-          <p>{movieDetail?.Genre}</p>
+          <p>genre: {movieDetail?.Genre}</p>
           <p>cast: {movieDetail?.Actors}</p>
           <p>{movieDetail?.Plot}</p>
 
-          <div>
+          <div className="review_list">
             <h3>Ratings</h3>
-            <ul className="review_list">
+            <ul>
               {movieDetail?.Ratings.map((rating, index) => (
                 <li key={index}>
                   <span className="bold">{rating.Source}:</span>

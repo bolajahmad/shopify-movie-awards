@@ -1,6 +1,6 @@
 import { Link } from '@reach/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Search } from 'react-feather';
+import { Search, ThumbsDown, ThumbsUp } from 'react-feather';
 import styled from 'styled-components';
 import { ISearchResult } from '../models';
 import { makeCallToApi, useDebounce } from '../utils';
@@ -70,6 +70,10 @@ const Wrapper = styled.ul`
       width: 3em;
       height: 3em;
     }
+
+    .btn {
+      padding: 0.75em 1em;
+    }
   }
 `;
 
@@ -81,7 +85,7 @@ export const SearchForm: React.FC<{
 }> = ({ setSearchResult, searchResult, nominations, setNominations }) => {
   const [query, setQuery] = useState<string>('');
 
-  const debouncedQuery = useDebounce(query, 2000);
+  const debouncedQuery = useDebounce(query, 2000) as string;
 
   const searchMovies = useCallback(() => {
     if (debouncedQuery.length >= 3) {
@@ -118,7 +122,7 @@ export const SearchForm: React.FC<{
   );
 
   return (
-    <form style={{ position: 'relative', width: '30em' }}>
+    <form style={{ position: 'relative', width: '100%' }}>
       <InputWrapper>
         <input
           type="search"
@@ -130,7 +134,7 @@ export const SearchForm: React.FC<{
         />
         <div className="btn_wrapper">
           <button className="btn">
-            <Search className="icon" size={24} />
+            <Search className="icon" color="black" size={24} />
             <span className="visually-hidden">Search</span>
           </button>
         </div>
@@ -145,9 +149,18 @@ export const SearchForm: React.FC<{
                   {movie.Title} ({movie.Year})
                 </Link>
               </p>
-              <button onClick={() => addNomination(movie.imdbID)} type="button">
-                <span>nominate</span>
-              </button>
+              <div className="btn_wrapper">
+                <button
+                  className="btn"
+                  onClick={() => addNomination(movie.imdbID)}
+                  type="button">
+                  {nominations.includes(movie.imdbID) ? (
+                    <ThumbsDown color="black" />
+                  ) : (
+                    <ThumbsUp color="pink" />
+                  )}
+                </button>
+              </div>
             </li>
           ))}
         </Wrapper>

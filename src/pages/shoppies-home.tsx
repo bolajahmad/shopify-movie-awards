@@ -1,5 +1,6 @@
 import { Router } from '@reach/router';
 import React, { useState } from 'react';
+import { Menu } from 'react-feather';
 import { SearchForm } from '../components';
 import { ISearchResult } from '../models';
 import { MainContent, MovieDetailComponent, NominationsComponent } from './components';
@@ -15,13 +16,19 @@ export const ShoppiesPage: React.FC = () => {
         <div className="navbar">
           <h1 className="title">The Shoppies</h1>
 
-          <div>
+          <div className="nav">
             <SearchForm
               setSearchResult={setSearchResult}
               searchResult={searchResult}
               nominations={nominationsList}
               setNominations={setNominationsList}
             />
+          </div>
+
+          <div className="btn_wrapper">
+            <button className="btn" style={{ padding: '0.75em 0.4em' }}>
+              <Menu color="pink" />
+            </button>
           </div>
         </div>
       </header>
@@ -34,16 +41,40 @@ export const ShoppiesPage: React.FC = () => {
                 path="/"
                 setNominations={setNominationsList}
                 nominations={nominationsList}
+                headerComponent={
+                  <SearchForm
+                    setSearchResult={setSearchResult}
+                    searchResult={searchResult}
+                    nominations={nominationsList}
+                    setNominations={setNominationsList}
+                  />
+                }
               />
               <MovieDetailComponent
                 path="/movie/:id"
                 setNominations={setNominationsList}
                 nominations={nominationsList}
+                headerComponent={
+                  <SearchForm
+                    setSearchResult={setSearchResult}
+                    searchResult={searchResult}
+                    nominations={nominationsList}
+                    setNominations={setNominationsList}
+                  />
+                }
               />
             </Router>
             <aside>
               <div className="sidebar">
                 <div className="nominations">
+                  <div className="form_wrapper">
+                    <SearchForm
+                      setSearchResult={setSearchResult}
+                      searchResult={searchResult}
+                      nominations={nominationsList}
+                      setNominations={setNominationsList}
+                    />
+                  </div>
                   <h3 className="center">nominations</h3>
                   {nominationsList.length < 5 ? (
                     <p className="alert_box info">

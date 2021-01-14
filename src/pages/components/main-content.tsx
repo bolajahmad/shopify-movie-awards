@@ -2,16 +2,31 @@ import { Link, RouteComponentProps } from '@reach/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ThumbsDown, ThumbsUp } from 'react-feather';
 import styled from 'styled-components';
-import { IMovies } from '../../models';
+import { device, IMovies } from '../../models';
 import { makeCallToApi } from '../../utils';
 
 const Wrapper = styled.section`
   width: 100%;
 
   .content_wrapper {
+    .header {
+      display: none;
+    }
+
     .movie_list {
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  @media screen and ${device.mobileL} {
+    .content_wrapper {
+      .header {
+        padding: 0 1em;
+        width: 30em;
+        display: block;
+      }
+    }
   }
 `;
 
@@ -56,7 +71,7 @@ const ProjectWrapper = styled.li`
       }
 
       .btn_wrapper {
-        align-self: center;
+        align-self: start;
         width: 50%;
       }
 
@@ -87,11 +102,13 @@ const ProjectWrapper = styled.li`
 interface MainContentProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
   nominations: string[];
+  headerComponent: React.ReactNode;
 }
 
 export const MainContent: React.FC<MainContentProps> = ({
   setNominations,
   nominations,
+  headerComponent,
   ...props
 }) => {
   const [moviesList, setMoviesList] = useState<IMovies[]>([]);
@@ -120,7 +137,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   return (
     <Wrapper>
       <div className="content_wrapper">
-        <div className="header"></div>
+        <div className="header">{headerComponent}</div>
 
         <ul className="movie_list">
           {moviesList.length < 1 ? (

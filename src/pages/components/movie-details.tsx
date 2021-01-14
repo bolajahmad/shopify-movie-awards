@@ -2,12 +2,16 @@ import { RouteComponentProps } from '@reach/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ThumbsDown, ThumbsUp } from 'react-feather';
 import styled from 'styled-components';
-import { IMovies } from '../../models';
+import { device, IMovies } from '../../models';
 import { makeCallToApi } from '../../utils';
 
 const WrapperStyles = styled.section`
   min-width: 70%;
   min-height: 90vh;
+
+  .header {
+    display: none;
+  }
 
   .wrapper {
     padding: 1.5em 2em;
@@ -58,18 +62,28 @@ const WrapperStyles = styled.section`
       }
     }
   }
+
+  @media screen and ${device.mobileL} {
+    .header {
+      width: 30em;
+      padding: 0 1em;
+      display: block;
+    }
+  }
 `;
 
 interface MovieDetailProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
   nominations: string[];
   id?: string;
+  headerComponent?: React.ReactNode;
 }
 
 export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
   setNominations,
   nominations,
   id,
+  headerComponent,
 }) => {
   const [movieDetail, setMovieDetail] = useState<IMovies | null>(null);
   console.log(id);
@@ -99,6 +113,7 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
 
   return (
     <WrapperStyles>
+      <div className="header">{headerComponent}</div>
       <div className="wrapper">
         <div className="img_wrapper">
           <img src={movieDetail?.Poster} alt="" />
@@ -131,7 +146,7 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
           <p>
             duration: <small>{movieDetail?.Runtime}</small>
           </p>
-          <p>{movieDetail?.Genre}</p>
+          <p>genre: {movieDetail?.Genre}</p>
           <p>cast: {movieDetail?.Actors}</p>
           <p>{movieDetail?.Plot}</p>
 

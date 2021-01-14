@@ -122,7 +122,7 @@ export const SearchForm: React.FC<{
   );
 
   return (
-    <form style={{ position: 'relative', width: '30em' }}>
+    <form style={{ position: 'relative', width: '100%' }}>
       <InputWrapper>
         <input
           type="search"
@@ -134,7 +134,7 @@ export const SearchForm: React.FC<{
         />
         <div className="btn_wrapper">
           <button className="btn">
-            <Search className="icon" size={24} />
+            <Search className="icon" color="black" size={24} />
             <span className="visually-hidden">Search</span>
           </button>
         </div>

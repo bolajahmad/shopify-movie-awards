@@ -85,7 +85,7 @@ export const SearchForm: React.FC<{
 }> = ({ setSearchResult, searchResult, nominations, setNominations }) => {
   const [query, setQuery] = useState<string>('');
 
-  const debouncedQuery = useDebounce(query, 2000);
+  const debouncedQuery = useDebounce(query, 2000) as string;
 
   const searchMovies = useCallback(() => {
     if (debouncedQuery.length >= 3) {

@@ -19,6 +19,7 @@ const WrapperStyles = styled.section`
     .img_wrapper {
       float: left;
       width: 20em;
+      max-width: 100%;
       height: 20em;
 
       img {
@@ -38,6 +39,13 @@ const WrapperStyles = styled.section`
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        & > h3 {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+        }
 
         .btn_wrapper {
           width: 10em;
@@ -66,6 +74,7 @@ const WrapperStyles = styled.section`
   @media screen and ${device.mobileL} {
     .header {
       width: 30em;
+      max-width: 100%;
       padding: 0 1em;
       display: block;
     }

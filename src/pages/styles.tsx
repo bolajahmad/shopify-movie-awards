@@ -39,8 +39,8 @@ export const ShoppiesPageWrapper = styled.div`
   }
 
   .main .sidebar {
-    width: 20em;
     padding: 0 1em;
+    display: block;
 
     .nominations {
       .form_wrapper {
@@ -88,12 +88,15 @@ export const ShoppiesPageWrapper = styled.div`
 
     .main .sidebar {
       position: fixed;
-      right: 0%;
-      top: 5.5em;
+      left: 0%;
+      top: 0;
       margin: 0;
-      width: 30em;
+      width: 20em;
+      max-width: 80vw;
+      padding-top: 5em;
       min-height: 100vh;
       background-color: var(--bg-color);
+      background: linear-gradient(transparent 10%, var(--bg-color) 40%);
     }
   }
 
@@ -107,6 +110,10 @@ export const ShoppiesPageWrapper = styled.div`
     }
 
     .main .sidebar {
+      background: none;
+      background-color: var(--bg-color);
+      width: 30em;
+
       .nominations {
         .form_wrapper {
           display: block;

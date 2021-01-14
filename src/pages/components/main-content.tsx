@@ -24,6 +24,7 @@ const Wrapper = styled.section`
       .header {
         padding: 0 1em;
         width: 30em;
+        max-width: 100%;
         display: block;
       }
     }

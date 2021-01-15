@@ -96,7 +96,7 @@ export const ShoppiesPageWrapper = styled.div`
       padding-top: 5em;
       min-height: 100vh;
       background-color: var(--bg-color);
-      background: linear-gradient(transparent 10%, var(--bg-color) 40%);
+      background: linear-gradient(transparent 10%, var(--bg-color) 30%);
     }
   }
 

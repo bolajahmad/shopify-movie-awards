@@ -115,7 +115,7 @@ export const MainContent: React.FC<MainContentProps> = ({
   const [moviesList, setMoviesList] = useState<IMovies[]>([]);
 
   useEffect(() => {
-    makeCallToApi(`batman`).then((res) => {
+    makeCallToApi(`tt0096895`).then((res) => {
       setMoviesList((prev) => [...prev, res]);
     });
   }, []);
@@ -141,33 +141,35 @@ export const MainContent: React.FC<MainContentProps> = ({
         <div className="header">{headerComponent}</div>
 
         <ul className="movie_list">
-          {moviesList.length < 1 ? (
+          {moviesList?.length < 1 ? (
             <p>Movies you search will appear here</p>
           ) : (
-            moviesList.map((movie, i) => (
-              <ProjectWrapper key={movie.imdbID}>
+            moviesList?.map((movie, i) => (
+              <ProjectWrapper key={movie?.imdbID}>
                 <div className="item">
                   <div className="poster">
-                    <img src={movie.Poster} alt="poster" height="250" />
-                    <div>{movie.Rated}</div>
+                    <img src={movie?.Poster} alt="poster" height="250" />
+                    <div>{movie?.Rated}</div>
                   </div>
 
                   <div className="details">
                     <div>
                       <h3 style={{ marginTop: '0' }}>
-                        <Link to={`/movie/${movie.imdbID}`}>
-                          {movie.Title} ({movie.Year})
+                        <Link to={`/movie/${movie?.imdbID}`}>
+                          {movie?.Title} ({movie?.Year})
                         </Link>
                       </h3>
-                      <p className="italic smaller">{movie.Actors}</p>
+                      <p className="italic smaller">{movie?.Actors}</p>
                       <p>
-                        <small>IMDB rating: {movie.imdbRating}/10</small>
+                        <small>IMDB rating: {movie?.imdbRating}/10</small>
                       </p>
-                      <p className="plot">{movie.Plot}</p>
+                      <p className="plot">{movie?.Plot}</p>
                     </div>
                     <div className="btn_wrapper">
-                      <button className="btn" onClick={() => addNomination(movie.imdbID)}>
-                        {nominations.includes(movie.imdbID) ? (
+                      <button
+                        className="btn"
+                        onClick={() => addNomination(movie?.imdbID)}>
+                        {nominations.includes(movie?.imdbID) ? (
                           <>
                             <ThumbsDown color="black" />
                             <span>reject</span>

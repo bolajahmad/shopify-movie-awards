@@ -47,10 +47,10 @@ export const NominationsComponent: React.FC<{ nominations: string[] }> = ({
 
   return (
     <Wrapper>
-      {movies.map((nom) => (
-        <div key={nom.imdbID}>
-          <img src={nom.Poster} alt="" height="36" width="36" />
-          <p className="bold">{nom.Title}</p>
+      {movies?.map((nom) => (
+        <div key={nom?.imdbID}>
+          <img src={nom?.Poster} alt="" height="36" width="36" />
+          <p className="bold">{nom?.Title}</p>
           <Delete color="rgb(94, 13, 30)" />
         </div>
       ))}

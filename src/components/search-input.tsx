@@ -149,20 +149,20 @@ export const SearchForm: React.FC<{
       </InputWrapper>
       {debouncedQuery.length > 2 && (
         <Wrapper>
-          {searchResult.map((movie) => (
-            <li key={movie.imdbID}>
-              <img src={movie.Poster} alt="" height="36" width="36" />
+          {searchResult?.map((movie) => (
+            <li key={movie?.imdbID}>
+              <img src={movie?.Poster} alt="" height="36" width="36" />
               <p>
-                <Link to={`movie/${movie.imdbID}`}>
-                  {movie.Title} ({movie.Year})
+                <Link to={`movie/${movie?.imdbID}`}>
+                  {movie?.Title} ({movie?.Year})
                 </Link>
               </p>
               <div className="btn_wrapper">
                 <button
                   className="btn"
-                  onClick={() => addNomination(movie.imdbID)}
+                  onClick={() => addNomination(movie?.imdbID)}
                   type="button">
-                  {nominations.includes(movie.imdbID) ? (
+                  {nominations.includes(movie?.imdbID) ? (
                     <ThumbsDown color="black" />
                   ) : (
                     <ThumbsUp color="pink" />

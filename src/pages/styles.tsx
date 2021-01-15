@@ -32,7 +32,8 @@ export const ShoppiesPageWrapper = styled.div`
       flex-wrap: wrap;
 
       > div {
-        width: 70%;
+        width: 70%i;
+        margin-right: 2em;
         flex: 1;
       }
     }

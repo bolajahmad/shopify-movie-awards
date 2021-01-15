@@ -1,1 +1,1 @@
-https://omdbapi.com/* http://omdbapi.com/:splat 200!
+http://omdbapi.com/* https://omdbapi.com/:splat 200!

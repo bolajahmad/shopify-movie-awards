@@ -41,7 +41,7 @@ export const ShoppiesPage: React.FC = () => {
             />
           </div>
 
-          <div className="btn_wrapper">
+          <div className="menu_wrapper">
             <button
               className="btn"
               style={{ padding: '0.75em 0.4em' }}

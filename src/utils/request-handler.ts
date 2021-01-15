@@ -1,6 +1,6 @@
 // const siteKey = `${process.env.API_KEY}`;
 
-const requestUrl = `http://www.omdbapi.com/`;
+const requestUrl = `https://www.omdbapi.com/`;
 
 type QueryType = 'title' | 'id' | 'search';
 
@@ -20,10 +20,7 @@ function checkQueryType(queryType: QueryType): string {
 
 // makeCallToApi takes a param that gets appended to the url.
 // param is the query parameter
-export function makeCallToApi(
-  param: string,
-  queryType: QueryType = 'title'
-): Promise<any> {
+export function makeCallToApi(param: string, queryType: QueryType = 'id'): Promise<any> {
   const query = checkQueryType(queryType) + param;
 
   return fetch(`

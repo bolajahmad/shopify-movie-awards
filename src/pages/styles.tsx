@@ -19,7 +19,7 @@ export const ShoppiesPageWrapper = styled.div`
         width: 30em;
       }
 
-      .btn_wrapper {
+      .menu_wrapper {
         display: none;
       }
     }
@@ -79,7 +79,7 @@ export const ShoppiesPageWrapper = styled.div`
         .nav {
         }
 
-        .btn_wrapper {
+        .menu_wrapper {
           display: block;
           width: 4em;
         }

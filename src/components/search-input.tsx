@@ -51,6 +51,7 @@ const InputWrapper = styled.label`
 
 const Wrapper = styled.ul`
   position: absolute;
+  display: none;
   z-index: 100;
   background: var(--bg-color);
   width: 100%;

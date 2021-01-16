@@ -11,6 +11,7 @@ const Wrapper = styled.section`
   .sitedesc {
     padding: 0 1em;
     margin-bottom: 3em;
+    color: var(--primary-color);
   }
 
   .content_wrapper {

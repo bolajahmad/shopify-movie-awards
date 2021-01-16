@@ -95,8 +95,12 @@ export const SearchForm: React.FC<{
     if (debouncedQuery.length >= 3) {
       makeCallToApi(debouncedQuery, 'search')
         .then((data) => {
-          const search = data.Search as ISearchResult[];
-          setSearchResult((prev) => [...search]);
+          if (data) {
+            if (data.Search) {
+              const search = data.Search as ISearchResult[];
+              setSearchResult((prev) => [...search]);
+            }
+          }
         })
         .catch((err) => console.log(err));
     }
@@ -126,6 +130,7 @@ export const SearchForm: React.FC<{
     },
     [nominations, setNominations]
   );
+  console.log(searchResult);
 
   return (
     <form style={{ position: 'relative', width: '100%' }}>

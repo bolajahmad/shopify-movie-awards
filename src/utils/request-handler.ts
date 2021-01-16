@@ -25,9 +25,5 @@ export function makeCallToApi(param: string, queryType: QueryType = 'id'): Promi
 
   return fetch(`
   ${requestUrl}?apikey=${process.env.REACT_APP_API_KEY}&${query}
-   `)
-    .then((response) => response.json())
-    .catch((err) => {
-      console.log(err);
-    });
+   `).then((response) => response.json());
 }

@@ -118,14 +118,6 @@ export const ShoppiesPage: React.FC = () => {
                 className="sidebar"
                 style={{ display: `${isOpen ? 'block' : 'none'}` }}>
                 <div className="nominations">
-                  <div className="form_wrapper">
-                    <SearchForm
-                      setSearchResult={setSearchResult}
-                      searchResult={searchResult}
-                      nominations={nominationsList}
-                      setNominations={setNominationsList}
-                    />
-                  </div>
                   <h3 className="center">nominations</h3>
                   {nominationsList.length < 5 ? (
                     <p className="alert_box info">

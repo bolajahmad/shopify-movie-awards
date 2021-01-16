@@ -8,6 +8,11 @@ import { makeCallToApi } from '../../utils';
 const Wrapper = styled.section`
   width: 100%;
 
+  .sitedesc {
+    padding: 0 1em;
+    margin-bottom: 3em;
+  }
+
   .content_wrapper {
     .header {
       display: none;
@@ -165,6 +170,12 @@ export const MainContent: React.FC<MainContentProps> = ({
   return (
     <Wrapper>
       <div className="content_wrapper">
+        <div className="sitedesc">
+          <p className="desc">
+            Welcome to shoppies. Search for your favorite movies, and nominate your top 5.
+          </p>
+        </div>
+
         <div className="header">{headerComponent}</div>
 
         <ul className="movie_list">

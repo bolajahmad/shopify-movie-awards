@@ -43,6 +43,10 @@ const ProjectWrapper = styled.li`
       width: 15em;
       height: auto;
 
+      img {
+        height: 250px;
+      }
+
       div {
         position: absolute;
         top: 1%;
@@ -98,16 +102,34 @@ const ProjectWrapper = styled.li`
       }
     }
   }
+
+  @media screen and ${device.tablet} {
+    .item {
+      display: block;
+      max-width: 600px;
+      margin: 0 auto;
+
+      .poster {
+        width: 100%;
+
+        img {
+          height: 350px;
+        }
+      }
+    }
+  }
 `;
 
 interface MainContentProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
+  openToast: React.Dispatch<React.SetStateAction<boolean>>;
   nominations: string[];
   headerComponent: React.ReactNode;
 }
 
 export const MainContent: React.FC<MainContentProps> = ({
   setNominations,
+  openToast,
   nominations,
   headerComponent,
   ...props
@@ -122,6 +144,11 @@ export const MainContent: React.FC<MainContentProps> = ({
 
   const addNomination = useCallback(
     (id: string) => {
+      if (nominations.length >= 5) {
+        openToast(true);
+
+        return;
+      }
       const index = nominations.findIndex((nom) => nom === id);
       if (index === -1) {
         setNominations((prev) => [...prev, id]);
@@ -132,7 +159,7 @@ export const MainContent: React.FC<MainContentProps> = ({
 
       return;
     },
-    [nominations, setNominations]
+    [nominations, setNominations, openToast]
   );
 
   return (
@@ -148,7 +175,7 @@ export const MainContent: React.FC<MainContentProps> = ({
               <ProjectWrapper key={movie?.imdbID}>
                 <div className="item">
                   <div className="poster">
-                    <img src={movie?.Poster} alt="poster" height="250" />
+                    <img src={movie?.Poster} alt="poster" />
                     <div>{movie?.Rated}</div>
                   </div>
 

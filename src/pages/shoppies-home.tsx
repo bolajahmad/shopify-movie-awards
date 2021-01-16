@@ -1,6 +1,6 @@
 import { Router } from '@reach/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Menu } from 'react-feather';
+import { Menu, ThumbsUp, X } from 'react-feather';
 import { SearchForm } from '../components';
 import { ISearchResult, size } from '../models';
 import { MainContent, MovieDetailComponent, NominationsComponent } from './components';
@@ -10,10 +10,16 @@ export const ShoppiesPage: React.FC = () => {
   const [searchResult, setSearchResult] = useState<ISearchResult[]>([]);
   const [nominationsList, setNominationsList] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(true);
+  const [toastOpen, openToast] = useState(false);
 
   const handleMenu = useCallback(() => (isOpen ? setIsOpen(false) : setIsOpen(true)), [
     isOpen,
   ]);
+
+  const resetNomination = useCallback(() => {
+    setNominationsList((prev) => []);
+    openToast(false);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -28,6 +34,28 @@ export const ShoppiesPage: React.FC = () => {
 
   return (
     <ShoppiesPageWrapper>
+      {nominationsList.length >= 5 && toastOpen && (
+        <div className="toast_notif">
+          <div className="wrapper">
+            <p>you have successfully nominated your top 5 movies</p>
+            <div className="icon">
+              <ThumbsUp />
+            </div>
+            <div className="btn_wrapper">
+              <button className="btn" onClick={() => openToast(false)}>
+                complete
+              </button>
+              <button className="btn inverse" onClick={resetNomination}>
+                reset
+              </button>
+            </div>
+          </div>
+          <button className="btn inverse" onClick={() => openToast(false)}>
+            <X />
+          </button>
+        </div>
+      )}
+
       <header>
         <div className="navbar">
           <h1 className="title">The Shoppies</h1>
@@ -59,6 +87,7 @@ export const ShoppiesPage: React.FC = () => {
               <MainContent
                 path="/"
                 setNominations={setNominationsList}
+                openToast={openToast}
                 nominations={nominationsList}
                 headerComponent={
                   <SearchForm
@@ -72,6 +101,7 @@ export const ShoppiesPage: React.FC = () => {
               <MovieDetailComponent
                 path="/movie/:id"
                 setNominations={setNominationsList}
+                openToast={openToast}
                 nominations={nominationsList}
                 headerComponent={
                   <SearchForm
@@ -107,7 +137,10 @@ export const ShoppiesPage: React.FC = () => {
                     </p>
                   )}
                   <ul>
-                    <NominationsComponent nominations={nominationsList} />
+                    <NominationsComponent
+                      nominations={nominationsList}
+                      setNominations={setNominationsList}
+                    />
                   </ul>
                 </div>
               </div>

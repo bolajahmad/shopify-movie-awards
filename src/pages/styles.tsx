@@ -104,6 +104,7 @@ export const ShoppiesPageWrapper = styled.div`
   .main .sidebar {
     padding: 0 1em;
     display: block;
+    transition: all 0.5s ease-in;
 
     .nominations {
       .form_wrapper {

@@ -51,7 +51,6 @@ const InputWrapper = styled.label`
 
 const Wrapper = styled.ul`
   position: absolute;
-  display: none;
   z-index: 100;
   background: var(--bg-color);
   width: 100%;
@@ -94,10 +93,12 @@ export const SearchForm: React.FC<{
 
   const searchMovies = useCallback(() => {
     if (debouncedQuery.length >= 3) {
-      makeCallToApi(debouncedQuery, 'search').then((data) => {
-        const search = data.Search as ISearchResult[];
-        setSearchResult((prev) => [...search]);
-      });
+      makeCallToApi(debouncedQuery, 'search')
+        .then((data) => {
+          const search = data.Search as ISearchResult[];
+          setSearchResult((prev) => [...search]);
+        })
+        .catch((err) => console.log(err));
     }
   }, [debouncedQuery, setSearchResult]);
 
@@ -136,6 +137,7 @@ export const SearchForm: React.FC<{
           value={query}
           placeholder="Search for movies to nominate"
           onChange={handleChange}
+          onBlur={() => setQuery('')}
         />
         <div className="btn_wrapper">
           <div className="btn">

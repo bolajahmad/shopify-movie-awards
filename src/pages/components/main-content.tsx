@@ -128,14 +128,12 @@ const ProjectWrapper = styled.li`
 
 interface MainContentProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
-  openToast: React.Dispatch<React.SetStateAction<boolean>>;
   nominations: string[];
   headerComponent: React.ReactNode;
 }
 
 export const MainContent: React.FC<MainContentProps> = ({
   setNominations,
-  openToast,
   nominations,
   headerComponent,
   ...props
@@ -143,18 +141,15 @@ export const MainContent: React.FC<MainContentProps> = ({
   const [moviesList, setMoviesList] = useState<IMovies[]>([]);
 
   useEffect(() => {
-    makeCallToApi(`tt0096895`).then((res) => {
-      setMoviesList((prev) => [...prev, res]);
-    });
+    makeCallToApi(`tt0096895`)
+      .then((res) => {
+        setMoviesList((prev) => [...prev, res]);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const addNomination = useCallback(
     (id: string) => {
-      if (nominations.length >= 5) {
-        openToast(true);
-
-        return;
-      }
       const index = nominations.findIndex((nom) => nom === id);
       if (index === -1) {
         setNominations((prev) => [...prev, id]);
@@ -165,7 +160,7 @@ export const MainContent: React.FC<MainContentProps> = ({
 
       return;
     },
-    [nominations, setNominations, openToast]
+    [nominations, setNominations]
   );
 
   return (

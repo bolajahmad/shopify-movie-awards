@@ -5,6 +5,8 @@ import { IMovies } from '../../models';
 import { makeCallToApi } from '../../utils';
 
 const Wrapper = styled.li`
+  font-size: 0.85em;
+
   & > div + div {
     margin-top: 2em;
   }
@@ -14,8 +16,8 @@ const Wrapper = styled.li`
     justify-content: space-between;
 
     img {
-      width: 3em;
-      height: 4em;
+      width: 2em;
+      height: 3em;
     }
 
     p {
@@ -62,8 +64,13 @@ export const NominationsComponent: React.FC<{
 
           return list;
         })
-        .then((value) => setMovies((prev) => [...value]));
+        .then((value) => setMovies((prev) => [...value]))
+        .catch((error) => console.log(error));
     });
+
+    if (nominations.length === 0) {
+      setMovies((prev) => []);
+    }
   }, [nominations, setMovies]);
 
   console.log(movies);
@@ -72,7 +79,7 @@ export const NominationsComponent: React.FC<{
     <Wrapper>
       {movies?.map((nom) => (
         <div key={nom?.imdbID}>
-          <img src={nom?.Poster} alt="" height="36" width="36" />
+          <img src={nom?.Poster} alt="" height="24" width="24" />
           <p className="bold">{nom?.Title}</p>
           <div className="wrapper">
             <button className="btn" onClick={() => removeMovie(nom.imdbID)}>

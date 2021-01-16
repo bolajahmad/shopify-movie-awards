@@ -5,9 +5,68 @@ export const ShoppiesPageWrapper = styled.div`
   background-color: var(--color-gray-75);
   min-height: 100vh;
 
+  .toast_notif {
+    position: fixed;
+    background: white;
+    z-index: 200;
+    left: 30%;
+    border: 1px solid var(--sec-color);
+    border-radius: 1em;
+    padding: 1em;
+    top: 20%;
+    right: 20%;
+    bottom: 30%;
+    margin: 0 auto;
+    box-shadow: 0 0 5px 3px silver;
+
+    & > .btn {
+      position: absolute;
+      width: 2em;
+      height: 2em;
+      top: 5%;
+      right: 5%;
+    }
+
+    .wrapper {
+      padding: 2em;
+      text-align: center;
+
+      & > * + * {
+        margin-top: 3em;
+      }
+
+      .icon {
+        width: 5em;
+        height: 5em;
+        margin: 3em auto;
+        padding: 1em;
+        border-radius: 50%;
+        background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: radial-gradient(hsla(347, 85%, 33%, 0.822) 30%, 
+                          hsla(347, 40%, 33%, 0.822) 60%, 
+                          hsla(0deg, 30%, 50%, 0.76) 80%
+                        );
+      }
+
+      .btn_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content; space-between;
+
+        & > .btn {
+          width: 40%;
+        }
+      }
+    }
+  }
+
   header {
     .navbar {
       padding: 0 1em;
+      max-width: 100vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -26,13 +85,16 @@ export const ShoppiesPageWrapper = styled.div`
   }
 
   .main {
-    margin-top: 2em;
+    padding-top: 2em;
+    max-width: 1000px;
+    margin: 0 auto;
+
     .main_wrapper {
       display: flex;
       flex-wrap: wrap;
 
       > div {
-        width: 70%i;
+        width: 70%;
         margin-right: 2em;
         flex: 1;
       }
@@ -89,12 +151,14 @@ export const ShoppiesPageWrapper = styled.div`
 
     .main .sidebar {
       position: fixed;
+      z-index; 150;
       left: 0%;
       top: 0;
       margin: 0;
       width: 20em;
       max-width: 80vw;
       padding-top: 5em;
+      overflow: auto;
       min-height: 100vh;
       background-color: var(--bg-color);
       background: linear-gradient(transparent 10%, var(--bg-color) 30%);

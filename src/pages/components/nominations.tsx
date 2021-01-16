@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Delete } from 'react-feather';
 import styled from 'styled-components';
 import { IMovies } from '../../models';
@@ -21,19 +21,42 @@ const Wrapper = styled.li`
     p {
       width: 60%;
     }
+
+    .wrapper {
+      width: 3em;
+
+      .btn {
+        background: none !important;
+
+        :focus,
+        :hover {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+    }
   }
 `;
 
-export const NominationsComponent: React.FC<{ nominations: string[] }> = ({
-  nominations,
-}) => {
+export const NominationsComponent: React.FC<{
+  nominations: string[];
+  setNominations: React.Dispatch<React.SetStateAction<string[]>>;
+}> = ({ nominations, setNominations }) => {
   const [movies, setMovies] = useState<IMovies[]>([]);
+
+  const removeMovie = useCallback(
+    (id: string) => {
+      setMovies((prev) => prev.filter((movie) => movie.imdbID !== id));
+      setNominations((nom) => nom.filter((value) => value !== id));
+    },
+    [setNominations]
+  );
 
   useEffect(() => {
     const list: IMovies[] = [];
 
     nominations.forEach((nom) => {
-      makeCallToApi(`${nom}`, 'id')
+      makeCallToApi(`${nom}`)
         .then((data) => {
           list.push(data);
 
@@ -51,7 +74,11 @@ export const NominationsComponent: React.FC<{ nominations: string[] }> = ({
         <div key={nom?.imdbID}>
           <img src={nom?.Poster} alt="" height="36" width="36" />
           <p className="bold">{nom?.Title}</p>
-          <Delete color="rgb(94, 13, 30)" />
+          <div className="wrapper">
+            <button className="btn" onClick={() => removeMovie(nom.imdbID)}>
+              <Delete color="rgb(94, 13, 30)" />
+            </button>
+          </div>
         </div>
       ))}
     </Wrapper>

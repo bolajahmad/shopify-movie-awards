@@ -24,11 +24,10 @@ const InputWrapper = styled.label`
     &:hover {
       background-color: white;
       color: var(--primary-color);
+    }
 
-      + .btn {
-        display: none;
-        position: relative;
-      }
+    &:focus + .btn_wrapper {
+      display: none;
     }
   }
 
@@ -137,15 +136,15 @@ export const SearchForm: React.FC<{
           placeholder="Search for movies to nominate"
           onChange={handleChange}
         />
-        <button className="visually-hidden" type="submit">
-          submit
-        </button>
         <div className="btn_wrapper">
           <div className="btn">
             <Search className="icon" color="black" size={24} />
             <span className="visually-hidden">Search</span>
           </div>
         </div>
+        <button className="visually-hidden" type="submit">
+          submit
+        </button>
       </InputWrapper>
       {debouncedQuery.length > 2 && (
         <Wrapper>

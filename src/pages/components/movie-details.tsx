@@ -18,7 +18,7 @@ const WrapperStyles = styled.section`
 
     .img_wrapper {
       float: left;
-      width: 20em;
+      min-width: 20em;
       max-width: 100%;
       height: 20em;
 
@@ -71,9 +71,27 @@ const WrapperStyles = styled.section`
     }
   }
 
+  @media screen and ${device.tablet} {
+    width: 70%;
+    margin: auto;
+    .wrapper {
+      .img_wrapper {
+        float: none;
+      }
+
+      .detail_wrapper {
+        clear: both;
+        padding: 1em 0;
+      }
+    }
+  }
+
   @media screen and ${device.mobileL} {
+    width: 100%;
+    padding: 1em 2em;
+
     .header {
-      width: 30em;
+      margin: 0 auto;
       max-width: 100%;
       padding: 0 1em;
       display: block;
@@ -83,6 +101,7 @@ const WrapperStyles = styled.section`
 
 interface MovieDetailProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
+  openToast: React.Dispatch<React.SetStateAction<boolean>>;
   nominations: string[];
   id?: string;
   headerComponent?: React.ReactNode;
@@ -90,6 +109,7 @@ interface MovieDetailProps extends RouteComponentProps {
 
 export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
   setNominations,
+  openToast,
   nominations,
   id,
   headerComponent,
@@ -105,6 +125,11 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
 
   const addNomination = useCallback(
     (value: string) => {
+      if (nominations.length >= 5) {
+        openToast(true);
+
+        return;
+      }
       const index = nominations.findIndex((nom) => nom === value);
       if (index === -1) {
         setNominations((prev) => [...prev, value]);
@@ -117,7 +142,7 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
 
       return;
     },
-    [nominations, setNominations]
+    [nominations, setNominations, openToast]
   );
 
   return (
@@ -164,8 +189,8 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
             <ul>
               {movieDetail?.Ratings.map((rating, index) => (
                 <li key={index}>
-                  <span className="bold">{rating.Source}:</span>
-                  <span>{rating.Value}</span>
+                  <span className="bold">{rating?.Source}:</span>
+                  <span>{rating?.Value}</span>
                 </li>
               ))}
             </ul>

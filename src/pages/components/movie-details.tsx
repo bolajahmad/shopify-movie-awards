@@ -101,7 +101,6 @@ const WrapperStyles = styled.section`
 
 interface MovieDetailProps extends RouteComponentProps {
   setNominations: React.Dispatch<React.SetStateAction<string[]>>;
-  openToast: React.Dispatch<React.SetStateAction<boolean>>;
   nominations: string[];
   id?: string;
   headerComponent?: React.ReactNode;
@@ -109,7 +108,6 @@ interface MovieDetailProps extends RouteComponentProps {
 
 export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
   setNominations,
-  openToast,
   nominations,
   id,
   headerComponent,
@@ -118,31 +116,26 @@ export const MovieDetailComponent: React.FC<MovieDetailProps> = ({
   console.log(id);
 
   useEffect(() => {
-    makeCallToApi(`${id}`, 'id').then((data) => {
-      setMovieDetail((prev) => Object.assign({}, prev, data));
-    });
+    makeCallToApi(`${id}`, 'id')
+      .then((data) => {
+        setMovieDetail((prev) => Object.assign({}, prev, data));
+      })
+      .catch((err) => console.log(err));
   }, [id]);
 
   const addNomination = useCallback(
     (value: string) => {
-      if (nominations.length >= 5) {
-        openToast(true);
-
-        return;
-      }
       const index = nominations.findIndex((nom) => nom === value);
       if (index === -1) {
         setNominations((prev) => [...prev, value]);
-        console.log(value);
 
         return;
       }
       setNominations((prev) => prev.filter((nom) => nom !== value));
-      console.log(value);
 
       return;
     },
-    [nominations, setNominations, openToast]
+    [nominations, setNominations]
   );
 
   return (

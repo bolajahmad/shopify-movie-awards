@@ -22,6 +22,10 @@ export const ShoppiesPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    nominationsList.length >= 5 ? openToast(true) : openToast(false);
+  }, [nominationsList]);
+
+  useEffect(() => {
     window.addEventListener('resize', () => {
       if (window.innerWidth > size.tablet) {
         setIsOpen(true);
@@ -31,6 +35,8 @@ export const ShoppiesPage: React.FC = () => {
       }
     });
   }, []);
+
+  console.log(toastOpen);
 
   return (
     <ShoppiesPageWrapper>
@@ -87,7 +93,6 @@ export const ShoppiesPage: React.FC = () => {
               <MainContent
                 path="/"
                 setNominations={setNominationsList}
-                openToast={openToast}
                 nominations={nominationsList}
                 headerComponent={
                   <SearchForm
@@ -101,7 +106,6 @@ export const ShoppiesPage: React.FC = () => {
               <MovieDetailComponent
                 path="/movie/:id"
                 setNominations={setNominationsList}
-                openToast={openToast}
                 nominations={nominationsList}
                 headerComponent={
                   <SearchForm

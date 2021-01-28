@@ -51,7 +51,7 @@ git clone https://github.com/bolajahmad/shopify-movie-awards.git
 ```shell 
 yarn
 ```
-3. Navigate into the projects directory and run gatsby.
+3. Navigate into the projects directory and run  app.
 
 ```shell 
 yarn start
